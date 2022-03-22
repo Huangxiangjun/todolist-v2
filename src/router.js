@@ -14,7 +14,8 @@ router.get('/', async(ctx) => {
         // 根据isCheck，0表示false，1表示true
         if (item.isCheck === 0) item.isCheck = false
         else item.isCheck = true
-            // 时间按指定格式
+
+        // 时间按指定格式
         item.time = dayjs(item.time).format('YYYY-MM-DD HH:mm:ss')
     })
     ctx.response.body = getData;

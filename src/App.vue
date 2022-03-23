@@ -77,7 +77,7 @@ export default {
     this.storage();
   },
   mounted: function() {
-    // if the items were all selected, 和首屏全选按钮有关
+    // 如果不是所有项目都被选中，显示全选按钮
     if(!this.todoList.length) {
       this.isSelectAll = false;
     }
@@ -101,8 +101,8 @@ export default {
   },
 
   methods: {
-    // ------------------main Function------------------
-    // add single item
+    // -----------------主要功能------------------
+    // 添加项目
     handleAdd: function() {
       // 新增的放到todoList
       let newItem = {
@@ -114,7 +114,6 @@ export default {
       this.todoList.unshift(newItem)
       // -------------新增的放到数据库
       this.post('/add', newItem)
-      // this.post('/add', newItem)
 
       
       // 自动获取焦点
@@ -124,7 +123,7 @@ export default {
       })
     },
 
-    // delete single item
+    // 删除项目
     handleDelItem: function(index, id) {
       if(this.todoList[index].id === id) {
         this.todoList.splice(index,1)
@@ -135,7 +134,7 @@ export default {
       this.post('/del', id)
     },
 
-    // select and cnacel single item
+    // 选择或取消选择单个项目
     handleSelectItem: function(index, id) {
       if(this.todoList[index].id === id) {
         this.todoList[index].isCheck = !this.todoList[index].isCheck
@@ -146,7 +145,7 @@ export default {
       this.post('/changeStatus', {'isCheck':this.todoList[index].isCheck, 'id':id})
     },
 
-    // deselect all items 全选情况下取消全选
+    // 全选情况下取消全选
     cancelSelectAll: function() {
       this.todoList.forEach(item => {
         item.isCheck = false;
@@ -157,7 +156,7 @@ export default {
       this.post('/cancelAll', {'isCheck':false})
     },
 
-    // select all items 非全选情况下进行全选
+    // 非全选情况下进行全选
     handleSelectAll: function() {
       this.todoList.forEach(item => {
         item.isCheck = true;
@@ -176,7 +175,7 @@ export default {
       // }
       // this.storage();
 
-      // -----如果内容为空，去数据库删除这条，
+      // -----如果内容为空，去数据库删除这条，并且不计入todoList
       if(this.todoList[index].text === "") {
         this.post('/blurDel', id)
         this.todoList.splice(index,1)
@@ -188,7 +187,7 @@ export default {
       this.storage();
     },
 
-    // ------------------mini Function---------------
+    // ------------------封装功能---------------
     // generate random ID
     getRandomId: function() {
       return Number(Math.random().toString().substr(2,0) + Date.now()).toString(10)
@@ -208,7 +207,7 @@ export default {
       return data
     },
 
-    // 封装post请求
+    // 封装axios post请求
     post: function(url, item) {
       console.log(JSON.stringify(item));
       this.$http.post(url, JSON.stringify(item), {emulateJSON:true,' Content-Type':'application/json'})

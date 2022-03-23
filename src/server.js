@@ -11,7 +11,6 @@ app.use(cors())
 app.use(bodyParser());
 app.use(router.routes())
 
-
 // const main = async(ctx) => {
 //     // 首屏响应数据库数据
 //     let getData = await sql.selectAll(selectAllSQL);

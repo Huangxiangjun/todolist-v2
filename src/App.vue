@@ -68,7 +68,7 @@ export default {
          id:this.getRandomId(), 
          isCheck:false, 
          text:"点击上方添加按钮添加事件", 
-         time:dayjs(new Date).format("YY-MM-DD HH:mm"),
+         time:dayjs(new Date).format("YYYY-MM-DD HH:mm:ss"),
         }]
     }else {
       this.todoList = getList
